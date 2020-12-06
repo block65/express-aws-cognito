@@ -1,0 +1,3 @@
+*
+!dist/build.js
+!dist/*.d.ts
