@@ -891,10 +891,10 @@
   resolved "https://registry.yarnpkg.com/@block65/auth-token/-/auth-token-3.0.2.tgz#c4afeb1080883487555f774d4fa45c76e234c9a4"
   integrity sha512-+0BY3OeiwZeWUS6+KiE3I1j2xWAuYMn7iNVWdsAnrcPNLMHVrett31oQXrky8e0/3mGu42XaE8vud2B7r0NggQ==
 
-"@block65/aws-cognito-auth@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@block65/aws-cognito-auth/-/aws-cognito-auth-4.0.2.tgz#a646f32c4fd70d1167d62c49a6d9f2baeeacc267"
-  integrity sha512-jqV6azl4VTe/cmwsOYgZ00I5u1Yk/vq7R7KOlNDv7Mj1/Cx7IklwwC/yuKT/aVQ6QgkhimAJ7GFlo4dccnz64g==
+"@block65/aws-cognito-auth@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@block65/aws-cognito-auth/-/aws-cognito-auth-4.0.3.tgz#3ed106cdbf910543dd81a3cdd7121068a38add80"
+  integrity sha512-dlsLQ+5m5uHtgFMnTp74JCw1V/chvPSOEaayhrkCAopVwKcmq2B+HSIA0BQfM6OvOmQCcbBtZVoTyGN1/QSD9g==
   dependencies:
     "@block65/auth-token" "^3.0.2"
     "@block65/custom-error" "^2.0.2"

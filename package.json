@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@block65/auth-token": "^3.0.2",
+    "@block65/aws-cognito-auth": "^4.0.3",
     "@block65/custom-error": "^2.0.2",
-    "@block65/express-async-wrapper": "^2.1.0",
-    "@block65/aws-cognito-auth": "^4.0.2"
+    "@block65/express-async-wrapper": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
