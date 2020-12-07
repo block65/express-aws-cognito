@@ -1,8 +1,8 @@
 import type { RequestHandler } from 'express';
 import { expressAsyncWrap } from '@block65/express-async-wrapper';
 import {
-  awsCognitoTokenVerifierFactory,
   AwsCognitoAuthOptions,
+  awsCognitoTokenVerifierFactory,
 } from '@block65/aws-cognito-auth';
 import { MissingAuthorizationError } from './missing-authorization-error';
 
@@ -11,6 +11,7 @@ export { MissingAuthorizationError };
 export function expressAwsCognito({
   region,
   userPoolId,
+  userIdGenerator,
 }: AwsCognitoAuthOptions): RequestHandler {
   if (!region) {
     throw new Error('Missing/undefined issuer argument');
@@ -19,6 +20,7 @@ export function expressAwsCognito({
   const verifier = awsCognitoTokenVerifierFactory({
     region,
     userPoolId,
+    userIdGenerator,
   });
 
   return expressAsyncWrap(

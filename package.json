@@ -15,7 +15,7 @@
   "dependencies": {
     "@block65/auth-token": "^3.0.2",
     "@block65/aws-cognito-auth": "^4.0.3",
-    "@block65/custom-error": "^2.0.2",
+    "@block65/custom-error": "^2.0.7",
     "@block65/express-async-wrapper": "^2.1.0"
   },
   "devDependencies": {
@@ -25,7 +25,7 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/runtime": "^7.12.5",
-    "@block65/eslint-config": "^3.0.0",
+    "@block65/eslint-config": "^3.1.1",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
