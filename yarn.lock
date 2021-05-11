@@ -299,20 +299,15 @@
   resolved "https://registry.yarnpkg.com/@block65/auth-token/-/auth-token-3.0.2.tgz#c4afeb1080883487555f774d4fa45c76e234c9a4"
   integrity sha512-+0BY3OeiwZeWUS6+KiE3I1j2xWAuYMn7iNVWdsAnrcPNLMHVrett31oQXrky8e0/3mGu42XaE8vud2B7r0NggQ==
 
-"@block65/aws-cognito-auth@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@block65/aws-cognito-auth/-/aws-cognito-auth-5.0.1.tgz#1df11a385630810bb9342a213f5b5f3df40e144e"
-  integrity sha512-S1IUDGrTXxHz/HYjftFqJlU377EJU5opMUWlIhzQaPKarnMYqRZgIAwyYodlU2Nw8vnQN9UaFmlbdzGL2g5cig==
+"@block65/aws-cognito-auth@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@block65/aws-cognito-auth/-/aws-cognito-auth-6.0.0.tgz#f1a8e1856d520ebd937001204371bb12622e2157"
+  integrity sha512-m+qWhokUKcTVNak+2N2yx7Scf04Tuy7W+AJ1htLEeiUMdwonQYDDLMnwJ0WN9c4pM2d/JkOZRQhoqC7JYvyRGw==
   dependencies:
     "@block65/auth-token" "^3.0.2"
-    "@block65/custom-error" "^2.0.9"
+    "@block65/custom-error" "^3.0.0"
     jsonwebtoken "^8.5.1"
     jwks-rsa "^2.0.3"
-
-"@block65/custom-error@^2.0.9":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@block65/custom-error/-/custom-error-2.0.9.tgz#e58355708d5283ddbf0cf26d0d0b545e856611c5"
-  integrity sha512-ibOrYoZzpb+eudVzL5xyUVssfRxLqzp8aJo++uSGUdoaDPP3b1fgxhR+xHVCOt88UGkWgRWAneEWmiLrwGPuqA==
 
 "@block65/custom-error@^3.0.0":
   version "3.0.0"
