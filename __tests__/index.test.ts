@@ -4,11 +4,14 @@ import {
   TokenInvalidError,
   TokenUnsuitableError,
 } from '@block65/aws-cognito-auth';
-import { expressAwsCognito } from '../lib';
+import { jest, describe, test } from '@jest/globals';
+// eslint-disable-next-line import/extensions
+import { expressAwsCognito } from '../lib/index';
+// eslint-disable-next-line import/extensions
 import { MissingAuthorizationError } from '../lib/missing-authorization-error';
 
 function mockReq(options: { headers?: Record<string, string> } = {}): Request {
-  return ({
+  return {
     body: {},
     cookies: {},
     query: {},
@@ -20,16 +23,16 @@ function mockReq(options: { headers?: Record<string, string> } = {}): Request {
     get: jest.fn(),
     resume: jest.fn().mockReturnThis(),
     ...options,
-  } as unknown) as Request;
+  } as unknown as Request;
 }
 
 function mockRes(): Response {
-  return ({
+  return {
     setHeader: jest.fn().mockReturnThis(),
     status: jest.fn().mockReturnThis(),
     send: jest.fn().mockReturnThis(),
     end: jest.fn().mockReturnThis(),
-  } as unknown) as Response;
+  } as unknown as Response;
 }
 
 function testApp(
@@ -66,7 +69,7 @@ describe('express', () => {
       mockRes(),
       (err: any) => {
         expect(err).toBeInstanceOf(MissingAuthorizationError);
-        expect(err.message).toContain('Bearer');
+        expect(err.message).toContain('Invalid Authorization scheme');
       },
     );
     expect.assertions(2);

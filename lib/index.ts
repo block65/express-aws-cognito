@@ -4,7 +4,7 @@ import {
   AwsCognitoAuthOptions,
   awsCognitoTokenVerifierFactory,
 } from '@block65/aws-cognito-auth';
-import { MissingAuthorizationError } from './missing-authorization-error';
+import { MissingAuthorizationError } from './missing-authorization-error.js';
 
 export { MissingAuthorizationError };
 
@@ -23,29 +23,35 @@ export function expressAwsCognito({
     userIdGenerator,
   });
 
-  return expressAsyncWrap(
-    async (req, res, next): Promise<void> => {
-      const [scheme = '', jwt = ''] =
-        req.header('authorization')?.split(' ') || [];
+  return expressAsyncWrap(async (req, res, next): Promise<void> => {
+    const headerValue = req.header('authorization')?.split(' ') || [];
 
-      if (scheme.toLowerCase() !== 'bearer') {
-        throw new MissingAuthorizationError(
-          `Expected Authorization method: Bearer - saw ${scheme}`,
-        ).debug({ scheme, jwt });
-      }
+    const [scheme = '', jwt = ''] = headerValue;
 
-      if (!jwt) {
-        throw new MissingAuthorizationError(
-          'Invalid or Missing Bearer token',
-        ).debug({
-          scheme,
-          jwt,
-        });
-      }
+    if (!scheme) {
+      throw new MissingAuthorizationError(`Missing Authorization scheme`).debug(
+        { headerValue, scheme, jwt },
+      );
+    }
 
-      res.locals.token = await verifier(jwt);
+    if (scheme.toLowerCase() !== 'bearer') {
+      throw new MissingAuthorizationError(
+        `Invalid Authorization scheme ${JSON.stringify(scheme)}`,
+      ).debug({ headerValue, scheme, jwt });
+    }
 
-      next();
-    },
-  );
+    if (!jwt) {
+      throw new MissingAuthorizationError(
+        'Invalid or missing bearer token',
+      ).debug({
+        headerValue,
+        scheme,
+        jwt,
+      });
+    }
+
+    res.locals.token = await verifier(jwt);
+
+    next();
+  });
 }
