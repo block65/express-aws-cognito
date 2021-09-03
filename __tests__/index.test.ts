@@ -8,7 +8,7 @@ import { jest, describe, test } from '@jest/globals';
 // eslint-disable-next-line import/extensions
 import { expressAwsCognito } from '../lib/index';
 // eslint-disable-next-line import/extensions
-import { MissingAuthorizationError } from '../lib/missing-authorization-error';
+import { AuthenticationError } from '../lib/authentication-error.js';
 
 function mockReq(options: { headers?: Record<string, string> } = {}): Request {
   return {
@@ -54,7 +54,7 @@ function testApp(
 describe('express', () => {
   test('should throw MissingAuthorizationError with invalid headers', async () => {
     await testApp(mockReq(), mockRes(), (err: any) => {
-      expect(err).toBeInstanceOf(MissingAuthorizationError);
+      expect(err).toBeInstanceOf(AuthenticationError);
     });
     expect.assertions(1);
   });
@@ -68,7 +68,7 @@ describe('express', () => {
       }),
       mockRes(),
       (err: any) => {
-        expect(err).toBeInstanceOf(MissingAuthorizationError);
+        expect(err).toBeInstanceOf(AuthenticationError);
         expect(err.message).toContain('Invalid Authorization scheme');
       },
     );
@@ -84,7 +84,7 @@ describe('express', () => {
       }),
       mockRes(),
       (err: any) => {
-        expect(err).toBeInstanceOf(MissingAuthorizationError);
+        expect(err).toBeInstanceOf(AuthenticationError);
         expect(err.message).toContain('Invalid');
       },
     );

@@ -4,19 +4,15 @@ import {
   AwsCognitoAuthOptions,
   awsCognitoTokenVerifierFactory,
 } from '@block65/aws-cognito-auth';
-import { MissingAuthorizationError } from './missing-authorization-error.js';
+import { AuthenticationError } from './authentication-error.js';
 
-export { MissingAuthorizationError };
+export { AuthenticationError };
 
 export function expressAwsCognito({
   region,
   userPoolId,
   userIdGenerator,
 }: AwsCognitoAuthOptions): RequestHandler {
-  if (!region) {
-    throw new Error('Missing/undefined issuer argument');
-  }
-
   const verifier = awsCognitoTokenVerifierFactory({
     region,
     userPoolId,
@@ -29,21 +25,21 @@ export function expressAwsCognito({
     const [scheme = '', jwt = ''] = headerValue;
 
     if (!scheme) {
-      throw new MissingAuthorizationError(`Missing Authorization scheme`).debug(
-        { headerValue, scheme, jwt },
-      );
+      throw new AuthenticationError(`Missing Authorization scheme`).debug({
+        headerValue,
+        scheme,
+        jwt,
+      });
     }
 
     if (scheme.toLowerCase() !== 'bearer') {
-      throw new MissingAuthorizationError(
+      throw new AuthenticationError(
         `Invalid Authorization scheme ${JSON.stringify(scheme)}`,
       ).debug({ headerValue, scheme, jwt });
     }
 
     if (!jwt) {
-      throw new MissingAuthorizationError(
-        'Invalid or missing bearer token',
-      ).debug({
+      throw new AuthenticationError('Invalid or missing bearer token').debug({
         headerValue,
         scheme,
         jwt,
