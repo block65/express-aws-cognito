@@ -1,16 +1,13 @@
-import type { NextFunction, Request, Response } from 'express';
+import { CustomError } from '@block65/custom-error';
+import { describe, jest, test } from '@jest/globals';
+import type { Request, Response } from 'express';
 import express from 'express';
-import {
-  TokenInvalidError,
-  TokenUnsuitableError,
-} from '@block65/aws-cognito-auth';
-import { jest, describe, test } from '@jest/globals';
-// eslint-disable-next-line import/extensions
-import { expressAwsCognito } from '../lib/index';
-// eslint-disable-next-line import/extensions
-import { AuthenticationError } from '../lib/authentication-error.js';
+import { expressAwsCognito } from '../lib/index.js';
+import { InvalidAuthenticationError } from '../lib/invalid-authentication-error.js';
 
-function mockReq(options: { headers?: Record<string, string> } = {}): Request {
+function createFakeRequest(
+  options: { headers?: Record<string, string> } = {},
+): Request {
   return {
     body: {},
     cookies: {},
@@ -26,7 +23,7 @@ function mockReq(options: { headers?: Record<string, string> } = {}): Request {
   } as unknown as Request;
 }
 
-function mockRes(): Response {
+function createFakeResponse(): Response {
   return {
     setHeader: jest.fn().mockReturnThis(),
     status: jest.fn().mockReturnThis(),
@@ -35,96 +32,90 @@ function mockRes(): Response {
   } as unknown as Response;
 }
 
-function testApp(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<unknown> {
+function testApp(req: Request, res: Response): Promise<unknown> {
   const app = express();
   app.use(expressAwsCognito({ region: 'local', userPoolId: 'issuer' }));
 
-  return new Promise<void>((resolve) => {
-    app(req, res, (err: unknown) => {
-      next(err);
-      resolve();
+  return new Promise<void>((resolve, reject) => {
+    app(req, res, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
     });
   });
 }
 
+function returnError(err: any): any {
+  return err;
+}
+
 describe('express', () => {
-  test('should throw MissingAuthorizationError with invalid headers', async () => {
-    await testApp(mockReq(), mockRes(), (err: any) => {
-      expect(err).toBeInstanceOf(AuthenticationError);
-    });
-    expect.assertions(1);
+  test('should throw correct error with missing header', async () => {
+    await expect(
+      testApp(createFakeRequest(), createFakeResponse()),
+    ).rejects.toBeInstanceOf(InvalidAuthenticationError);
   });
 
-  test('should throw MissingAuthorizationError with no headers', async () => {
-    await testApp(
-      mockReq({
+  test('should throw correct error with invalid headers', async () => {
+    const err = await testApp(
+      createFakeRequest({
         headers: {
-          authorization: 'OMG DED',
+          authorization: 'Boring JWT',
         },
       }),
-      mockRes(),
-      (err: any) => {
-        expect(err).toBeInstanceOf(AuthenticationError);
-        expect(err.message).toContain('Invalid Authorization scheme');
-      },
-    );
-    expect.assertions(2);
+      createFakeResponse(),
+    ).catch(returnError);
+
+    await expect((err as CustomError).toJSON()).toMatchSnapshot({
+      stack: expect.any(String),
+    });
   });
 
-  test('should throw MissingAuthorizationError with missing JWT ', async () => {
-    await testApp(
-      mockReq({
+  test('should throw correct error with missing JWT ', async () => {
+    const err = await testApp(
+      createFakeRequest({
         headers: {
           authorization: 'Bearer',
         },
       }),
-      mockRes(),
-      (err: any) => {
-        expect(err).toBeInstanceOf(AuthenticationError);
-        expect(err.message).toContain('Invalid');
-      },
-    );
-    expect.assertions(2);
+      createFakeResponse(),
+    ).catch(returnError);
+
+    await expect((err as CustomError).toJSON()).toMatchSnapshot({
+      stack: expect.any(String),
+    });
   });
 
   test('should throw TokenError with bad JWT ', async () => {
-    await testApp(
-      mockReq({
+    const err = await testApp(
+      createFakeRequest({
         headers: {
           authorization: 'Bearer DED',
         },
       }),
-      mockRes(),
-      (err: any) => {
-        expect(err).toBeInstanceOf(TokenInvalidError);
-        expect(err.message).toContain('parse');
-      },
-    );
-    expect.assertions(2);
+      createFakeResponse(),
+    ).catch(returnError);
+
+    await expect((err as CustomError).toJSON()).toMatchSnapshot({
+      stack: expect.any(String),
+    });
   });
 
   test('should throw TokenError with fake JWT ', async () => {
-    await testApp(
-      mockReq({
+    const err = await testApp(
+      createFakeRequest({
         headers: {
           authorization:
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
         },
       }),
-      mockRes(),
-      (err: any) => {
-        expect(err).toBeInstanceOf(TokenUnsuitableError);
-        // expect(err.debug()).toMatchObject({
-        //   code: 'invalid_token',
-        //   inner: expect.any(Error),
-        // });
-        // expect(err.message).toContain('Invalid');
-      },
-    );
-    expect.assertions(1);
+      createFakeResponse(),
+    ).catch(returnError);
+
+    await expect((err as CustomError).toJSON()).toMatchSnapshot({
+      stack: expect.any(String),
+    });
   });
 });
