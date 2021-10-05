@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`express should throw TokenError with bad JWT  1`] = `
+Object {
+  "code": 3,
+  "debug": Object {
+    "decoded": null,
+  },
+  "httpStatusCode": 400,
+  "message": "Unparseable token",
+  "name": "Error",
+  "stack": Any<String>,
+  "status": "INVALID_ARGUMENT",
+}
+`;
+
+exports[`express should throw TokenError with fake JWT  1`] = `
+Object {
+  "code": 3,
+  "debug": Object {
+    "decoded": Object {
+      "header": Object {
+        "alg": "HS256",
+        "typ": "JWT",
+      },
+      "payload": Object {
+        "iat": 1516239022,
+        "name": "John Doe",
+        "sub": "1234567890",
+      },
+      "signature": "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    },
+  },
+  "httpStatusCode": 400,
+  "message": "Missing key id",
+  "name": "Error",
+  "stack": Any<String>,
+  "status": "INVALID_ARGUMENT",
+}
+`;
+
+exports[`express should throw correct error with invalid headers 1`] = `
+Object {
+  "code": 3,
+  "debug": Object {
+    "headerValue": Array [
+      "Boring",
+      "JWT",
+    ],
+    "scheme": "Boring",
+  },
+  "details": Array [
+    Object {
+      "violations": Array [
+        Object {
+          "description": "Invalid scheme",
+          "field": "authorization",
+        },
+      ],
+    },
+  ],
+  "httpStatusCode": 400,
+  "message": "Invalid Authentication",
+  "name": "Error",
+  "stack": Any<String>,
+  "status": "INVALID_ARGUMENT",
+}
+`;
+
+exports[`express should throw correct error with missing JWT  1`] = `
+Object {
+  "code": 3,
+  "debug": Object {
+    "headerValue": Array [
+      "Bearer",
+    ],
+    "jwt": "",
+  },
+  "details": Array [
+    Object {
+      "violations": Array [
+        Object {
+          "description": "Missing bearer token",
+          "field": "authorization",
+        },
+      ],
+    },
+  ],
+  "httpStatusCode": 400,
+  "message": "Invalid Authentication",
+  "name": "Error",
+  "stack": Any<String>,
+  "status": "INVALID_ARGUMENT",
+}
+`;
