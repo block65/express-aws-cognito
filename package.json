@@ -1,6 +1,6 @@
 {
   "name": "@block65/express-aws-cognito",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "license": "UNLICENSED",
   "type": "module",
   "exports": {
