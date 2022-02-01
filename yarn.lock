@@ -937,20 +937,15 @@
   resolved "https://registry.yarnpkg.com/@block65/auth-token/-/auth-token-3.0.2.tgz#c4afeb1080883487555f774d4fa45c76e234c9a4"
   integrity sha512-+0BY3OeiwZeWUS6+KiE3I1j2xWAuYMn7iNVWdsAnrcPNLMHVrett31oQXrky8e0/3mGu42XaE8vud2B7r0NggQ==
 
-"@block65/aws-cognito-auth@^7.3.1":
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/@block65/aws-cognito-auth/-/aws-cognito-auth-7.3.1.tgz#109fdf0a929c963f05c31c5810903707f694d1bb"
-  integrity sha512-kI5F521OAYv35sIvOS6sMOfJ2IkicO/hvI7nYQT1YrfhQzXAE9jl+Lo5lYAbHRrfrJ0K7Gm3RtNOiNjEYoNx3w==
+"@block65/aws-cognito-auth@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@block65/aws-cognito-auth/-/aws-cognito-auth-8.0.0.tgz#2dae9de83883946ea5a1ac0b497b444ecbd520e8"
+  integrity sha512-aIu6KyuahF/jauXRPMRrjQ9q3ipSiNYuK/Xs9cERX4cAXfOdX87iMoI/dZEgl2/4GTQaFtpzINlu89CR/WBI1Q==
   dependencies:
     "@block65/auth-token" "^3.0.2"
-    "@block65/custom-error" "^7.0.1"
+    "@block65/custom-error" "^8.0.0"
     jsonwebtoken "^8.5.1"
-    jwks-rsa "^2.0.4"
-
-"@block65/custom-error@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@block65/custom-error/-/custom-error-7.0.1.tgz#5b7e9b8b3abd08bdf82659f0796ed35e376a77a1"
-  integrity sha512-vbdZhMmnkRaWVSc0qiD1ShytTYD9EX24ktRBeTLHfPF2eEeNDbkgqzgtGi/bz2IVdbfifIN1pqBeKbe1nIrWPA==
+    jwks-rsa "^2.0.5"
 
 "@block65/custom-error@^8.0.0":
   version "8.0.0"
@@ -3520,7 +3515,7 @@ jwa@^1.4.1:
     ecdsa-sig-formatter "1.0.11"
     safe-buffer "^5.0.1"
 
-jwks-rsa@^2.0.4:
+jwks-rsa@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/jwks-rsa/-/jwks-rsa-2.0.5.tgz#5dc911cdade803a149b7d4d41404a7c1bf2c221a"
   integrity sha512-fliHfsiBRzEU0nXzSvwnh0hynzGB0WihF+CinKbSRlaqRxbqqKf2xbBPgwc8mzf18/WgwlG8e5eTpfSTBcU4DQ==

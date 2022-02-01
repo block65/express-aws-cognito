@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@block65/auth-token": "^3.0.2",
-    "@block65/aws-cognito-auth": "^7.3.1",
+    "@block65/aws-cognito-auth": "^8.0.0",
     "@block65/custom-error": "^8.0.0",
     "@block65/express-async-wrapper": "^4.0.0"
   },
