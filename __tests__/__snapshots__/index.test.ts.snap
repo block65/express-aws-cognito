@@ -6,7 +6,6 @@ Object {
   "debug": Object {
     "decoded": null,
   },
-  "httpStatusCode": 400,
   "message": "Unparseable token",
   "name": "Error",
   "stack": Any<String>,
@@ -31,7 +30,6 @@ Object {
       "signature": "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     },
   },
-  "httpStatusCode": 400,
   "message": "Missing key id",
   "name": "Error",
   "stack": Any<String>,
